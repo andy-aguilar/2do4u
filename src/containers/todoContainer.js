@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 
 export default class todoContainer extends Component {
+
+    renderTodos = () => {
+        return this.props.todos.map(todo => <li>{todo.text}</li>)
+    }
+
     render() {
         return (
             <div>
                 <h1>Todos:</h1>
                 <ul className="todo-container">
-                    <li>Eat</li>
-                    <li>Sleep</li>
-                    <li>Code</li>
+                    {this.renderTodos()}
                 </ul>
             </div>
         )
