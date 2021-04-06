@@ -7,12 +7,21 @@ import "./App.css"
 class App extends React.Component {
 
   state = {
-    todos: []
+    todos: [],
+    currentKey: 1
   }
 
-  createTodo = (e) => {
+  createTodo = (text) => {
     this.setState({
-      todos: [...this.state.todos, {text: "Yo!"}]
+      todos: [...this.state.todos, { text: text, key: this.state.currentKey }],
+      currentKey: this.state.currentKey + 1
+    })
+  }
+
+  deleteTodo = (key) => {
+    let newTodos = this.state.todos.filter(todo => todo.key !== key)
+    this.setState({
+      todos: newTodos
     })
   }
 
@@ -21,9 +30,8 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <div className="todo">
-          <button onClick={this.createTodo}>Yo!</button>
-          <Form />
-          <TodoContainer todos={this.state.todos}/>
+          <Form createTodo={this.createTodo}/>
+          <TodoContainer todos={this.state.todos} deleteTodo={this.deleteTodo}/>
         </div>
 
       </div>

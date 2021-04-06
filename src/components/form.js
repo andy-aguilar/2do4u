@@ -12,16 +12,19 @@ export default class Form extends Component {
         })
     }
 
-    handleSubmit = () => {
-        
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(this.state.todo)
+        this.props.createTodo(this.state.todo)
+        this.setState({todo: ""})
     }
 
     render() {
         return (
             <div>
                 <h1>Add Todo:</h1>
-            <form className="form">
-                <input type="text" onChange={this.handleChange} />
+            <form className="form" onSubmit={this.handleSubmit}>
+                <input type="text" onChange={this.handleChange} value={this.state.todo} />
                 <input type="submit" value="Add Item"/>
             </form>
             </div>
