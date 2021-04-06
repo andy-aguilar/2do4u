@@ -22,7 +22,10 @@ export default class Form extends Component {
     render() {
         return (
             <div>
-                <h1>Add Todo:</h1>
+                {this.props.urgent 
+                ? <h1>Add Urgent Todo:</h1>
+                : <h1>Add Todo: </h1>
+                }
             <form className="form" onSubmit={this.handleSubmit}>
                 <input type="text" onChange={this.handleChange} value={this.state.todo} />
                 <input type="submit" value="Add Item"/>

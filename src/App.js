@@ -8,7 +8,8 @@ class App extends React.Component {
 
   state = {
     todos: [],
-    currentKey: 1
+    currentKey: 1,
+    urgent: false
   }
 
   createTodo = (text) => {
@@ -25,12 +26,23 @@ class App extends React.Component {
     })
   }
 
+  toggleUrgent = () => {
+    this.setState({
+      urgent: !this.state.urgent
+    })
+  }
+
   render(){
     return (
       <div className="App">
         <Header />
         <div className="todo">
-          <Form createTodo={this.createTodo}/>
+          {this.state.urgent 
+          ? <button style={{backgroundColor: "red"}} onClick={this.toggleUrgent}>Urgent</button> 
+          : <button onClick={this.toggleUrgent}>Normal</button>}
+          
+          <Form createTodo={this.createTodo} urgent={this.state.urgent}/>
+          
           <TodoContainer todos={this.state.todos} deleteTodo={this.deleteTodo}/>
         </div>
 
