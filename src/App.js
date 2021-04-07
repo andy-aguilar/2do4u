@@ -5,13 +5,25 @@ import TodoContainer from "./containers/todoContainer.js"
 import "./App.css"
 
 class App extends React.Component {
+
+  state = {
+    todos: []
+  }
+
+  createTodo = (text) => {
+    this.setState({
+      todos: [...this.state.todos, {text}]
+    })
+  }
+
   render(){
     return (
       <div className="App">
         <Header />
         <div className="todo">
-          <Form />
-          <TodoContainer />
+          <Form createTodo={this.createTodo}/>
+          
+          <TodoContainer todos={this.state.todos} />
         </div>
 
       </div>

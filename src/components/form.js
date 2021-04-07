@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { traverseTwoPhase } from 'react-dom/test-utils'
 
 export default class Form extends Component {
 
@@ -6,22 +7,22 @@ export default class Form extends Component {
         todo: ""
     }
 
-    handleChange = (e) => {
-        this.setState({
-            todo: e.target.value
-        })
+    handleChange = (event) => {
+        this.setState({todo: event.target.value})
     }
 
-    handleSubmit = () => {
-
+    handleSubmit = (event) => {
+        event.preventDefault()
+        this.props.createTodo(this.state.todo)
+        this.setState({todo: ""})
     }
 
     render() {
         return (
             <div>
                 <h1>Add Todo:</h1>
-            <form className="form">
-                <input type="text" onChange={this.handleChange} />
+            <form className="form" onSubmit={this.handleSubmit}>
+                <input type="text" value={this.state.todo} onChange={(event) => this.handleChange(event)} />
                 <input type="submit" value="Add Item"/>
             </form>
             </div>
